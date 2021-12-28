@@ -6,12 +6,12 @@ class PostsController {
 
   static async createPost(req, res) {
     const userId = req.session.user.id;
-    let { title, descript } = req.body;
+    let { title, description } = req.body;
 
     try {
       const post = await Post.create({
         title,
-        descript,
+        description,
         userid: userId,
       });
       res.json({ post });
@@ -38,10 +38,10 @@ class PostsController {
   static async updatePost(req, res) {
     const postId = req.params.id;
     try {
-      const { title, descript} = req.body;
-      console.log(title, descript);
+      const { title, description} = req.body;
+      console.log(title, description);
       await Post.update(
-        { title, descript},
+        { title, description},
         {
           where: {
             id: postId,

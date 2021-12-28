@@ -1,7 +1,8 @@
+require('dotenv').config() // забираем dotenv и вызываем метод конфиг
 const { isAuthorizated } = require('./src/middlewares/usersMiddlewares')
 const express = require('express') //подключаем экспресс
 const path = require('path')
-require('dotenv').config() // забираем dotenv и вызываем метод конфиг
+const cors = require('cors')
 
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
@@ -18,7 +19,7 @@ const postsRouter = require('./src/routes/postsRouter')
 const sessionConfig = {
   store: new FileStore(), // хранилище сессий
   key: 'smth', // ключ куки
-  secret: 'gchjtghjkl;bjkll', // шифрование id сессии
+  secret: process.env.SECRET, // шифрование id сессии
   resave: false, // пересохранение сессии (когда что-то поменяли - false)
   saveUninitialized: false, // сохраняем пустую сессию (чтоб посмотреть)
   httpOnly: true, // нельзя изменить куки с фронта
@@ -29,7 +30,10 @@ app.use(session(sessionConfig))
 // middlware
 app.use(express.json()) //распознавания входящего объекты запроса как объекта JSON
 app.use(express.urlencoded({ extended: true })) //распознавания входящего объекта запроса в виде строк или массивов
-app.use(express.static(path.join(process.env.PWD, 'public'))) // изображения
+app.use(cors({
+  origin: process.env.ORIGIN,
+  credentials: true
+}))
 app.use((req, res, next) => {
   res.locals.user = req.session.user
   next()

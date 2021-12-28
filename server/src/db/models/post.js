@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Post.init({
     title: DataTypes.TEXT,
-    descript: DataTypes.TEXT,
+    description: DataTypes.TEXT,
     userid: DataTypes.INTEGER
   }, {
     sequelize,

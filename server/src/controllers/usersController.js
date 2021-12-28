@@ -1,9 +1,10 @@
 const bcrypt = require('bcryptjs');
 const { User, Post } = require('../db/models');
 
+// зарегистрироваться
 class UsersController {
   static async signUp(req, res) {
-    const { password } = req.body;
+    const { name, password, email } = req.body;
     try {
       const cryptPass = await bcrypt.hash(
         password,
@@ -11,14 +12,15 @@ class UsersController {
       );
 
       const currentUser = await User.create({
-        ...req.body,
+        name,
         password: cryptPass,
+        email
       });
       req.session.user = {
         id: currentUser.id,
         name: currentUser.name,
       };
-      return res.redirect(`/users/${currentUser.id}`);
+      return res.redirect(`/users/${currentUser.id}`); // отправляем данные клиенту
     } catch (err) {
       // const errData = detectError(err)
       // res.status(500).json(errData)

@@ -1,43 +1,33 @@
-import React from 'react'
+import Input from "../Input/Input";
+import useInput from '../../hooks/useInput'
+import { useDispatch } from 'react-redux'
+import { addPost } from '../../redux/actions/posts.actions'
 
-const Form = ({
-  title,
-  description,
-  handleTitle,
-  handleDescription,
-  handleSubmit,
-}) => {
+function Form() {
+  const dispatch = useDispatch()
+
+  const list = [
+    useInput({ name: 'title' }),
+    useInput({ name: 'description' }),
+  ]
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const newPost = {}
+    list.forEach((el) => {
+      newPost[el.attr.name] = el.getValue()
+    })
+
+    dispatch(addPost(newPost))
+    list.forEach(el => el.clearValue())
+  }
+
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mb-3">
-        <label htmlFor="title" className="form-label">
-          Title: {title}
-        </label>
-        <input
-          onChange={handleTitle}
-          value={title}
-          className="form-control"
-          id="title"
-          aria-describedby="title"
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="description" className="form-label">
-          Description:{description}
-        </label>
-        <input
-          onChange={handleDescription}
-          value={description}
-          className="form-control"
-          id="description"
-          aria-describedby="description"
-        />
-      </div>
-      <button type="submit" className="btn btn-success">
-        Submit
-      </button>
+      {list.map((el) => <Input key={el.attr.name} {...el.attr} />)}
+      <button type="submit" className="btn btn-success">Submit</button>
     </form>
   )
 }
 
-export default Form
+export default Form;

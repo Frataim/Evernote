@@ -1,22 +1,23 @@
-import React from 'react';
+import { memo } from 'react'
+import Card from "../Card/Card"
+import { useSelector } from 'react-redux'
 
-const List = ({posts}) => {
+
+function List() {
+  const posts = useSelector((state) => state.posts)
+
   return (
     <section className="my-5">
-    <div className="row">
-      {posts && posts.map((el) => (
-        <div className="col-3 my-2" key={el.id}> 
-          <div className="card text-white bg-success my-3">
-            <div className="card-header">{el.title}</div>
-            <div className="card-body">
-              <h5 className="card-title">{el.description}</h5>
-            </div>
+      <div className="row">
+        {posts && posts.map((el) => (
+          <div className="col-3 my-2" key={el.id}>
+            <Card {...el} />
           </div>
-        </div>
-      ))}
-    </div>
-  </section>
-  );
+        ))}
+
+      </div>
+    </section>
+  )
 }
 
-export default List;
+export default memo(List)

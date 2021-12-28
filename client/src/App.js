@@ -1,38 +1,44 @@
-import React, { useState } from 'react'
-import Form from './components/Form/Form'
-import List from './components/List/List'
+import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+// import Form from './components/Form/Form'
+// import List from './components/List/List'
+import { useDispatch } from 'react-redux'
+import { getAllPosts } from './redux/actions/posts.actions'
+import Header from './components/Header/Header'
+import Home from './components/Home/Home'
+import Notes from './components/Notes/Notes'
+import Signin from './components/Signin/Signin'
+import Signup from './components/Signup/Signup'
+import React from 'react'
+import Signout from './components/Signout/Signout'
 
-const App = () => {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [posts, setPosts] = useState([])
+function App() {
+  const dispatch = useDispatch()
 
-  function handleTitle(e) {
-    setTitle(e.target.value)
-  }
-
-  function handleDescription(e) {
-    setDescription(e.target.value)
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault()
-
-    const newPost = {
-      title,
-      description,
-    }
-    setPosts((prev) => [...prev, newPost])
-    setTitle('')
-    setDescription('')
-  }
+  useEffect(() => {
+    fetch(process.env.REACT_APP_API_URL)
+      .then((response) => response.json())
+      .then((data) => dispatch(getAllPosts(data)))
+  }, [])
 
   return (
-    <div className="container my-5">
-      <Form title={title} description={description} handleTitle={handleTitle}  handleDescription={handleDescription} handleSubmit={handleSubmit}/>
-      <hr></hr>
-      <List posts={posts}/>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        {/* {user && <Route path='/' element={
+          <>
+          <Form />
+          <List />
+          </>}
+        />} */}
+        <Route path="/" element={<Home />} />
+        <Route path="/posts" element={<Notes />} />
+        <Route path="signin" element={<Signin />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="signout" element={<Signout />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

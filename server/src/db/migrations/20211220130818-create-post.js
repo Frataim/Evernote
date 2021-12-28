@@ -11,7 +11,7 @@ module.exports = {
       title: {
         type: Sequelize.TEXT
       },
-      descript: {
+      description: {
         type: Sequelize.TEXT
       },
       userid: {
