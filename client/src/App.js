@@ -17,7 +17,7 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL)
+    fetch(process.env.EXPRESS_APP_PORT)
       .then((response) => response.json())
       .then((data) => dispatch(getAllPosts(data)))
   }, [])

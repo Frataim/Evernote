@@ -3,6 +3,8 @@ const { isAuthorizated } = require('./src/middlewares/usersMiddlewares')
 const express = require('express') //подключаем экспресс
 const path = require('path')
 const cors = require('cors')
+const morgan = require('morgan')
+
 
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
@@ -26,7 +28,7 @@ const sessionConfig = {
   cookie: { expires: 20e3 }, // expires - время жизни
 }
 app.use(session(sessionConfig))
-
+app.use('dev', morgan)
 // middlware
 app.use(express.json()) //распознавания входящего объекты запроса как объекта JSON
 app.use(express.urlencoded({ extended: true })) //распознавания входящего объекта запроса в виде строк или массивов

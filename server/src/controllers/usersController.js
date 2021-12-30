@@ -64,7 +64,7 @@ class UsersController {
       const userId = req.params.id;
       const posts = await Post.findAll({
         where: {
-          userid: userId,
+          userId,
         },
       });
       res.render('myaccount', { posts });
