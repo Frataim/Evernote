@@ -1,14 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import { addUser } from '../../redux/actions/user.actions';
 
+// зарегистрироваться
 const Signup = () => {
+  // состояние регистрации
+  const [reg, setReg] = useState({})
+  const navigate = useNavigate()
+  // чтоб изменить состояние внутри компонента получаем диспатч
+  const dispatch = useDispatch()
+  // получаем состояние 
+const user = useSelector((state) => state.user)
+// если пользователь прошел регистрацию то мы его направляем на домашнюю страницу
+useEffect(() => {
+  if (user) {
+    navigate('/posts')
+  }
+}, [user])
+
+
+const inputChange = (e) => {
+  setReg((prev) => ({...prev,[e.target.name] : e.target.value}))
+}
+
+const regHandler = (e) => {
+  e.preventDefault()
+  dispatch(addUser(reg))
+  navigate('/posts')
+
+
+}
   return (
-    <form>
+    <form onSubmit={(e) => regHandler(e)}>
     <div className="container my-3">
         <label htmlFor="exampleInputText" className="form-label">
           Name
         </label>
         <input
           type="text"
+          name="name"
+          value={reg.name}
+          onChange={inputChange}
           className="form-control"
           id="exampleInputText"
           aria-describedby="emailHelp"
@@ -20,6 +53,9 @@ const Signup = () => {
         </label>
         <input
           type="email"
+          name="email"
+          value={reg.email}
+          onChange={inputChange}
           className="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
@@ -31,6 +67,9 @@ const Signup = () => {
         </label>
         <input
           type="password"
+          name="password"
+          value={reg.password}
+          onChange={inputChange}
           className="form-control"
           id="exampleInputPassword1"
         />

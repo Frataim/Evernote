@@ -1,4 +1,4 @@
-import { ADD_POST, DELETE_POST, GET_ALL_POSTS, TOGGLE_FAVORITE } from '../types'
+import { ADD_POST, DELETE_POST, GET_ALL_POSTS, TOGGLE_FAVORITE } from '../types/post.types'
 import {addPostToServer} from '../utils/post.utils'
 
 export const getAllPosts = (posts) => ({

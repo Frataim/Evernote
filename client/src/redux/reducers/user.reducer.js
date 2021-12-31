@@ -1,7 +1,13 @@
-export const userReducer = (state = {}, action) => {
-  const { type, payload } = action
+import {ADD_USER, DEL_USER} from '../types/user.types'
 
-  switch (type) {
+export const userReducer = (state = null, action) => {
+
+  switch (action.type) {
+    case ADD_USER:
+      return action.payload
+
+    case DEL_USER:
+      return null
 
     default: {
       return state

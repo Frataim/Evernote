@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 
 const initialState = {
   posts: [], // slice
-  user: {} // slice
+  user: null // slice
 }
 
 // store

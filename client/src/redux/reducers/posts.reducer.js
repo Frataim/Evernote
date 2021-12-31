@@ -1,4 +1,4 @@
-import {ADD_POST, DELETE_POST, GET_ALL_POSTS, TOGGLE_FAVORITE} from '../types'
+import {ADD_POST, DELETE_POST, GET_ALL_POSTS, TOGGLE_FAVORITE} from '../types/post.types'
 
 export const postsReducer = (state = [], action) => {
   const { type, payload } = action
