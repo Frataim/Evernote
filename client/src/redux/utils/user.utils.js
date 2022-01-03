@@ -1,6 +1,7 @@
 import { addUser, delUser } from "../actions/user.actions"
 
 export const addUserToServer = async (data) => {
+  // здесь ошибка выходит для входа под своей учетной записи
   const response = await fetch('http://localhost:3001/users/signup', {
     method: 'POST',
     headers: {

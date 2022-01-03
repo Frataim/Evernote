@@ -12,7 +12,7 @@ const Signup = () => {
   const dispatch = useDispatch()
   // получаем состояние 
 const user = useSelector((state) => state.user)
-// если пользователь прошел регистрацию то мы его направляем на домашнюю страницу
+// если пользователь прошел регистрацию то мы его направляем на его заметки
 useEffect(() => {
   if (user) {
     navigate('/posts')

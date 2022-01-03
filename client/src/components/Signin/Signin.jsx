@@ -1,14 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { addUser } from '../../redux/actions/user.actions'
 
 const Signin = () => {
+  const [log, setLog] = useState({})
+  const navigate = useNavigate()
+  // чтоб изменить состояние внутри компонента получаем диспатч
+  const dispatch = useDispatch()
+  // получаем состояние 
+  const user = useSelector((state) => state.user)
+// если пользователь зашел под своей учетной записью то мы его направляем на его заметки
+  useEffect (() => {
+    if (user) {
+      navigate('/posts')
+    }
+  }, [user])
+
+  const inputLogChange = (e) => {
+    setLog((prev) => ({...prev, [e.target.name] : e.target.value}))
+  }
+
+  const logHandler = (e) => {
+    e.preventDefault()
+    dispatch(addUser(log)) // функция аддюзер также используется в регистрации - это странно
+    navigate('/posts')
+  }
+
+
   return (
-    <form>
+    <form onSubmit={(e) => logHandler(e)}>
       <div className="container my-3">
         <label htmlFor="exampleInputEmail1" className="form-label">
           Email address
         </label>
         <input
           type="email"
+          name="email"
+          value={log.email}
+          onChange={inputLogChange}
           className="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
@@ -20,6 +50,9 @@ const Signin = () => {
         </label>
         <input
           type="password"
+          name="password"
+          value={log.password}
+          onChange={inputLogChange}
           className="form-control"
           id="exampleInputPassword1"
         />
