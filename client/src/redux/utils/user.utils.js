@@ -1,29 +1,30 @@
 import { addUser, delUser } from "../actions/user.actions"
 
-export const addUserToServer = async (data) => {
-  // здесь ошибка выходит для входа под своей учетной записи
-  const response = await fetch('http://localhost:3001/users/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    body: JSON.stringify(data)
-  })
+// export const addUserToServer = async (data) => {
+//   // здесь ошибка выходит для входа под своей учетной записи
+//   const response = await fetch(process.env.REACT_APP_API_URL, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     credentials: 'include',
+//     body: JSON.stringify(data)
+//   })
 
-  if (response.ok) {
-    return await response.json()
-  } else {
-    throw Error('Noooooooooooo :(((')
-  }
-}
+//   if (response.ok) {
+//     return await response.json()
+//   } else {
+//     throw Error('Noooooooooooo :(((')
+//   }
+// }
 
 // зарегистрироваться
 export const signUp = (payload) => async (dispatch) => {
   const response = await fetch('/signup', signUp(), {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
     credentials: 'include',
     body: JSON.stringify(payload)
@@ -39,7 +40,8 @@ export const signIn = (payload) => async (dispatch) => {
   const response = await fetch('/signin', signIn(), {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
     credentials: 'include',
     body: JSON.stringify(payload)
