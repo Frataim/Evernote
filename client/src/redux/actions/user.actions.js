@@ -1,8 +1,8 @@
-
+import axios from 'axios'
 import {ADD_USER, DEL_USER} from '../types/user.types'
 // import {addUserToServer} from '../utils/user.utils'
 
-export const addUser = (user) => async (dispatch) =>{
+export const addUserAction = (user) => async (dispatch) =>{
   try {
     // const newUser = await addUserToServer(user)
     
@@ -31,11 +31,11 @@ export const delUser = (user) => ({
 //   payload: responce,
 // })
 
-// export const addUser = (formData) => async (dispatch) => {
-//   const userFromBack = await axios.post('http://localhost:3001/users/signup', {formData})
-//   const responce = userFromBack.data
-//   dispatch(addUserAction(responce))
-// }
+export const addUser = (formData) => async (dispatch) => {
+  const userFromBack = await axios.post('http://localhost:3001/users/signup', {formData})
+  const responce = userFromBack.data
+  dispatch(addUserAction(responce))
+}
 
 // export const delUserAction = () => ({
 //   type: DEL_USER,

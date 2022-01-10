@@ -11,9 +11,6 @@ module.exports = {
       title: {
         type: Sequelize.TEXT
       },
-      description: {
-        type: Sequelize.TEXT
-      },
       userid: {
         type: Sequelize.INTEGER,
         references: {

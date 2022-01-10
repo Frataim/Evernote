@@ -1,4 +1,5 @@
 import { addUser, delUser } from "../actions/user.actions"
+import axios from 'axios'
 
 // export const addUserToServer = async (data) => {
 //   // здесь ошибка выходит для входа под своей учетной записи
@@ -20,7 +21,7 @@ import { addUser, delUser } from "../actions/user.actions"
 
 // зарегистрироваться
 export const signUp = (payload) => async (dispatch) => {
-  const response = await fetch('/signup', signUp(), {
+  const response = await fetch('/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ export const signUp = (payload) => async (dispatch) => {
 
 // войти
 export const signIn = (payload) => async (dispatch) => {
-  const response = await fetch('/signin', signIn(), {
+  const response = await fetch('/signin', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -53,14 +54,22 @@ export const signIn = (payload) => async (dispatch) => {
 }
 
 // выход
-export const signOut = () => async (dispatch) => {
-  const response = await fetch('/signout',signOut(), {
-    credentials:'include'
-  })
-  if (response.ok) {
-    dispatch(delUser())
-  }
-}
+// export const signOut = () => async (dispatch) => {
+//   const response = await fetch('/signout', {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json'
+//     },
+//     credentials:'include'
+//   })
+//   if (response.ok) {
+//     dispatch(delUser())
+//   }
+// }
+ export const signOut = () => async (dispatch) => {
+   const response = await axios('/users/signout')
+ }
 
 // проверка авторизации
 export const authCheck = () => async (dispatch) => {

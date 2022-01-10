@@ -1,7 +1,7 @@
 import { toggleFavorite } from '../../redux/actions/posts.actions'
 import { useDispatch } from 'react-redux'
 
-function Card({ id, title, description, isFavorite }) {
+function Card({ id, title, isFavorite }) {
   const dispatch = useDispatch()
 
   const handleFavorite = (id) => {
@@ -18,12 +18,12 @@ function Card({ id, title, description, isFavorite }) {
   return (
     <div className="card text-white bg-success mb-3">
       <div className="card-header">{title}</div>
-      <div className="card-body">
-        <h5 className="card-title">{description}</h5>
+      {/* <div className="card-body">
+        <h5 className="card-title">{description}</h5> */}
         <button onClick={() => handleFavorite(id)}>
           {isFavorite ? '💓' : '💛'}
         </button>
-      </div>
+      {/* </div> */}
     </div>
   )
 }

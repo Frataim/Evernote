@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { delUser } from '../../redux/actions/user.actions';
+import { signOut } from '../../redux/utils/user.utils';
+
 
 const Signout = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    window.localStorage.clear()
+    // window.localStorage.clear()
     dispatch(delUser())
+    dispatch(signOut())
     navigate('/')
   }, [])
   return (

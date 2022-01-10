@@ -33,7 +33,7 @@ const regHandler = (e) => {
 }
   return (
     <form onSubmit={(e) => regHandler(e)}>
-    <div className="container my-3">
+    {/* <div className="container my-3">
         <label htmlFor="exampleInputText" className="form-label">
           Name
         </label>
@@ -46,7 +46,7 @@ const regHandler = (e) => {
           id="exampleInputText"
           aria-describedby="emailHelp"
         />
-      </div>
+      </div> */}
       <div className="container my-3">
         <label htmlFor="exampleInputEmail1" className="form-label">
           Email address

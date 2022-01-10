@@ -8,7 +8,7 @@ function Form() {
 
   const list = [
     useInput({ name: 'title' }),
-    useInput({ name: 'description' }),
+    // useInput({ name: 'description' }),
   ]
 
   function handleSubmit(e) {

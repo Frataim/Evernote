@@ -1,21 +1,21 @@
 require('dotenv').config() // забираем dotenv и вызываем метод конфиг
-const { isAuthorizated } = require('./src/middlewares/usersMiddlewares')
 const express = require('express') //подключаем экспресс
 const path = require('path')
 const cors = require('cors')
 const morgan = require('morgan')
 
-
+// session
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 
-const PORT = process.env.PORT || 3001
-const app = express()
-
 // routers import
+const checkUser = require('./src/middlewares/checkUser');
 const indexRouter = require('./src/routes/indexRouter')
 const usersRouter = require('./src/routes/usersRouter')
 const postsRouter = require('./src/routes/postsRouter')
+
+const PORT = process.env.PORT || 3001
+const app = express()
 
 // session middlware
 const sessionConfig = {
@@ -27,24 +27,26 @@ const sessionConfig = {
   httpOnly: true, // нельзя изменить куки с фронта
   cookie: { expires: 20e3 }, // expires - время жизни
 }
-app.use(session(sessionConfig))
-app.use('dev', morgan)
+
 // middlware
+app.use(session(sessionConfig))
+app.use(morgan('dev'))
 app.use(express.json()) //распознавания входящего объекты запроса как объекта JSON
 app.use(express.urlencoded({ extended: true })) //распознавания входящего объекта запроса в виде строк или массивов
-app.use(cors({
-  origin: process.env.ORIGIN,
-  credentials: true
-}))
+app.use(cors({origin: process.env.ORIGIN,credentials: true}))
+// middleware session
 app.use((req, res, next) => {
+  console.log(req.session.user)
   res.locals.user = req.session.user
   next()
 })
 
+
+app.use(checkUser)
 // routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/posts', isAuthorizated, postsRouter);
+app.use('/posts', postsRouter);
 
 // слушаем порт
 app.listen(PORT, () => console.log(`Порт подключен ${PORT}`))
