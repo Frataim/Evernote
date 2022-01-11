@@ -1,4 +1,4 @@
-import {ADD_POST, DELETE_POST, GET_ALL_POSTS, TOGGLE_FAVORITE} from '../types/post.types'
+import {ADD_POST, DELETE_POST, GET_ALL_POSTS, TOGGLE_FAVORITE, CHANGE_STATUS} from '../types/post.types'
 
 export const postsReducer = (state = [], action) => {
   const { type, payload } = action
@@ -13,6 +13,17 @@ export const postsReducer = (state = [], action) => {
     case ADD_POST: {
       const { newPost } = payload
       return [...state, newPost]
+    }
+    case CHANGE_STATUS: {
+      return state.map(el => {
+        if (el.id === action.payload) {
+          return {
+            ...el,
+            status: !el.status
+          }
+        }
+        return el
+      })
     }
 
     case DELETE_POST: {

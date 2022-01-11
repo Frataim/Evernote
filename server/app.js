@@ -25,7 +25,7 @@ const sessionConfig = {
   resave: false, // пересохранение сессии (когда что-то поменяли - false)
   saveUninitialized: false, // сохраняем пустую сессию (чтоб посмотреть)
   httpOnly: true, // нельзя изменить куки с фронта
-  cookie: { expires: 20e3 }, // expires - время жизни
+  // cookie: { expires: 20e3 }, // expires - время жизни
 }
 
 // middlware
